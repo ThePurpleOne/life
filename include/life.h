@@ -17,7 +17,7 @@
 
 // DEFINES
 #define CELL_SIZE 25
-#define WORLD_WIDTH 1500
+#define WORLD_WIDTH 1000
 #define WORLD_HEIGHT 1000
 #define COLOR_ACTIVE (Color){108, 92, 231, 255}
 #define COLOR_INACTIVE (Color){223, 230, 233, 50}
