@@ -19,6 +19,11 @@ Just run ```make run``` command to build and launch the programm.
 ### Fun patern that appeared (a lot more on the wikipedia page)
 ![](docs/cool_life.gif)
 
+## TODO
+1. Optimizing the process to allow bigger world with constant FPS.
+2. Allow to add paterns like gliders n'all.
+3. Allow to add cells where we want.
+
 
 ## Sources
 [Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
