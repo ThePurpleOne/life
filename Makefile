@@ -1,6 +1,6 @@
 CC      := gcc
 CFLAGS  := -std=gnu11 -Wall -Wextra -g -fsanitize=address -fsanitize=leak 
-LIB     := -lm -lraylib -lGL -lpthread -ldl -lrt -lX11
+LIB     := -lm -lraylib -lGL 
 
 DIR_BIN := bin
 DIR_SRC := src
