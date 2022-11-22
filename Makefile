@@ -1,25 +1,35 @@
-CC       := gcc
-CC_FLAGS := -Wall -Wextra
+CC      := gcc
+CFLAGS  := -std=gnu11 -Wall -Wextra -g -fsanitize=address -fsanitize=leak 
+LIB     := -lm -lraylib -lGL -lpthread -ldl -lrt -lX11
 
-BIN     	:= bin
-SRC     	:= src
-INCLUDE 	:= include
-LIB     	:= lib
-LIBRARIES   := -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 #Library flags like -lm -lncurses
-EXECUTABLE  := main
+DIR_BIN := bin
+DIR_SRC := src
+DIR_INC := include
+DIR_LIB := lib
+CFLAGS  += -I$(DIR_INC) -L$(DIR_LIB)
 
-all: $(BIN)/$(EXECUTABLE)
+EXE_MAIN := main
 
-run: clean all
-	clear
-	@echo "🚀 Executing..."
-	./$(BIN)/$(EXECUTABLE)
+SOURCES = $(wildcard $(DIR_SRC)/*.c)
+OBJECTS = $(patsubst $(DIR_SRC)/%.c, $(DIR_BIN)/%.o, $(SOURCES))
 
-$(BIN)/$(EXECUTABLE): $(SRC)/*.c
-	@echo "🚧 Building..."
-	$(CC) $(CC_FLAGS) -I $(INCLUDE) -L $(LIB) $^ -o $@ $(LIBRARIES)
+.PHONY: all clean prebuild run test
+
+all: prebuild $(DIR_BIN)/$(EXE_MAIN)
+
+run: all
+	./$(DIR_BIN)/$(EXE_MAIN)
+
+prebuild:
+	@mkdir -p $(DIR_BIN)
 
 clean:
-	@echo "🧹 Clearing..."
-	-rm $(BIN)/*
+	-rm $(DIR_BIN)/*
 
+# BUILD MAIN EXECUTABLE
+$(DIR_BIN)/$(EXE_MAIN): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ $(LIB)
+
+# BUILD OBJECT FILES
+$(DIR_BIN)/%.o: $(DIR_SRC)/%.c
+	$(CC) -c $< -o $@ $(CFLAGS)
